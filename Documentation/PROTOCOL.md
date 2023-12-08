@@ -6,8 +6,8 @@
 
 ## 1 - Overview
 - The Teletext protocol is designed to enable the transmission, reception, and display of information like a teletext
-- The client connects to the teletext server and requests information about different categories.
 - The server listens to news emitters and stores the news to allow clients to access and view them.
+- The client connects to the teletext server and requests information about different categories.
 
 ## 2 - Transport protocol
 - The Teletetx protocol uses the `UDP protocol`. The server runs on the `port 11111`.  
