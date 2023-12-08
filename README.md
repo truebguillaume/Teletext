@@ -3,7 +3,7 @@
 ![teletext](/teletext.jpg)
 
 ## Description
-Teletext is a multi users UDP application who looks like the ancien teltext.       
+Teletext is a multi users UDP application who looks like the ancien teletext.       
 The app use the Teletext protocol, you can find the information about it [here.](/PROTOCOL.md)
 
 ## Building the app
