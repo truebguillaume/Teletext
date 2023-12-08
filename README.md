@@ -4,7 +4,7 @@
 
 ## Description
 Teletext is a multi users UDP application who looks like the ancien teletext.       
-The app use the Teletext protocol, you can find the information about it [here.](/PROTOCOL.md)
+The app use the Teletext protocol, you can find the information about it [here.](/Documentation/PROTOCOL.md))
 
 ## Building the app
 The app use maven  so in order to build and package the app use this command.
