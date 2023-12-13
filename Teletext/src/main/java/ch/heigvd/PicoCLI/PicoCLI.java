@@ -1,5 +1,6 @@
 package ch.heigvd.PicoCLI;
 
+import ch.heigvd.NewsEmitter.Emitter;
 import picocli.CommandLine;
 
 @CommandLine.Command(
