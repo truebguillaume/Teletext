@@ -1,5 +1,6 @@
 package ch.heigvd.PicoCLI;
 
+import ch.heigvd.NewsServer.NewsServer;
 import picocli.CommandLine;
 
 @CommandLine.Command(
@@ -38,7 +39,8 @@ public class PicoCLI{
     public static class NewsServer implements Runnable{
         @Override
         public void run() {
-
+            ch.heigvd.NewsServer.NewsServer server = new ch.heigvd.NewsServer.NewsServer();
+            server.start();
         }
     }
 

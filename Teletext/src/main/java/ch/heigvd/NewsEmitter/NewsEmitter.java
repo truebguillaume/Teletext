@@ -1,24 +1,18 @@
 package ch.heigvd.NewsEmitter;
 
+import ch.heigvd.Shared.*;
+
 import java.io.IOException;
 import java.net.*;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class NewsEmitter {
 
     int port = 5000;
-    private Map<String, String> typeNewsIPAddress = new HashMap<String, String>() {{
-        put("weather", "239.0.0.1");
-        put("heig", "239.0.0.2");
-        put("politic", "239.0.0.3");
-        put("sport", "239.0.0.4");
-    }};
 
     public void start(String newsType) {
 
-        if(!typeNewsIPAddress.containsKey(newsType)){
+        if(!TypeNews.mapTypeIP.containsKey(newsType.toUpperCase())){
             System.err.println("This type of news doesn't exist!");
         } else {
             DatagramSocket datagramSocket = null;
@@ -32,16 +26,16 @@ public class NewsEmitter {
                     String news = "";
                     switch (newsType) {
                         case "weather":
-                            news = NewsCreator.getRandomWeatherNews();
+                            news = "WEATHER " + NewsCreator.getRandomWeatherNews();
                             break;
                         case "heig":
-                            news = NewsCreator.getRandomHeigNews();
+                            news = "HEIG " + NewsCreator.getRandomHeigNews();
                             break;
                         case "politic":
-                            news = NewsCreator.getRandomPoliticNews();
+                            news = "POLITIC " + NewsCreator.getRandomPoliticNews();
                             break;
                         case "sport":
-                            news = NewsCreator.getRandomSportNews();
+                            news = "SPORT " + NewsCreator.getRandomSportNews();
                             break;
                     }
 
@@ -56,15 +50,18 @@ public class NewsEmitter {
 
                     // Creation du datagramm
                     byte[] data = news.getBytes();
-                    InetAddress address = InetAddress.getByName(typeNewsIPAddress.get(newsType));
+                    InetAddress address = InetAddress.getByName(TypeNews.mapTypeIP.get(newsType));
                     DatagramPacket packet = new DatagramPacket(data, data.length, address, port);
 
                     // Envoie du datagramm
                     datagramSocket.send(packet);
                     System.out.println("> News sent (" + newsType + ") on " + address);
 
+
+                    randomNumber = (random.nextInt(26) + 5)*1000; // de 5 a 30
+
                     // Attente avant d'envoyer la prochaine nouvelle (10 secondes)
-                    Thread.sleep(5000);
+                    Thread.sleep(randomNumber);
                 }
 
             } catch (IOException | InterruptedException e) {
