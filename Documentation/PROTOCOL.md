@@ -47,18 +47,18 @@ Command : `shutdown`
 
 ### 3.3 - Clients
 #### Connect the client to the teletext server
-Command: `client -i <ip> -p <port (default -> 11111)>`
-|Response|Detail|
-| ---- | ---- |
-|`welcome`|A welcome message and a description of what you can do here|
-|`err`|Possible error|
-
-#### Display news categories
-Command: `news`
+Command: `client -i <ip> -p <port (default -> 5001)>`
 |Response|Detail|
 | ---- | ---- |
 |`news`|Display the news categories|
 |`err`|Possible error|
+
+#### Display news categories
+Command: `type de news`
+|Response|Detail|
+| ---- | ---- |
+|`ok`|Display list of news|
+|`err`|This type of news doesn't exists|
 
 #### Disconnect the client from the teletext server
 Command: `disconnect`
