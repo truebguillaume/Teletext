@@ -2,7 +2,9 @@ package ch.heigvd.NewsServer;
 
 import ch.heigvd.Shared.*;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -68,7 +70,48 @@ public class NewsServer {
     public class ClientServer implements Runnable{
         @Override
         public void run() {
-            System.out.println("Salut");
+            DatagramSocket socket = null;
+            try {
+                // Adresse IP et port du serveur
+                String serverIP = "127.0.0.1";
+                int serverPort = 5001;
+
+                // Creation du socket UDP
+                socket = new DatagramSocket(serverPort);
+
+                BufferedReader consoleInput = new BufferedReader(new InputStreamReader(System.in));
+
+                while (true) {
+
+                    // Réception de la réponse du serveur
+                    byte[] receiveData = new byte[1024];
+                    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+                    socket.receive(receivePacket);
+
+                    // Afficher la réponse du serveur
+                    String serverResponse = new String(receivePacket.getData(), 0, receivePacket.getLength());
+                    System.out.println("Réponse du serveur: " + serverResponse);
+
+                    // Lire l'entrée de l'utilisateur
+                    System.out.print("Entrez votre commande: ");
+                    String userMessage = consoleInput.readLine();
+
+                    // Convertir le message en tableau de bytes
+                    byte[] sendData = userMessage.getBytes();
+
+                    // Créer un datagramme à envoyer au serveur
+                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName(serverIP), serverPort);
+
+                    // Envoyer le datagramme
+                    socket.send(sendPacket);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (socket != null) {
+                    socket.close(); // Fermer le socket à la fin
+                }
+            }
         }
     }
 }
