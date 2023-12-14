@@ -118,7 +118,7 @@ public class NewsCreator {
         int randomIndex = (int) (Math.random() * heigNewsArray.length);
         return heigNewsArray[randomIndex];
     }
-    public static String getRandomPolitiqueNews() {
+    public static String getRandomPoliticNews() {
         String[] politicalNewsArray = {
                 "Le gouvernement annonce de nouvelles mesures pour promouvoir l'égalité des sexes sur le lieu de travail.",
                 "Des négociations de paix entre deux nations voisines sont en cours pour résoudre les tensions frontalières.",

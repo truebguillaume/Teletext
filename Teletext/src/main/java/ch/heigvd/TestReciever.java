@@ -6,7 +6,8 @@ import java.net.DatagramSocket;
 
 public class TestReciever {
     public static void main(String[] args) {
-        int port = 8888; // Port de réception des nouvelles
+        // Port de réception des nouvelles
+        int port = 5000;
 
         try {
             // Création du socket UDP pour recevoir
