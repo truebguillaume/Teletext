@@ -48,12 +48,13 @@ public class PicoCLI{
             mixinStandardHelpOptions = true)
     public static class NewsClient implements Runnable{
 
-        @CommandLine.Parameters(description = "Your port")
-        private int port;
+        //@CommandLine.Parameters(description = "Your port")
+        //private int port;
 
         @Override
         public void run() {
-            ch.heigvd.NewsClient.NewsClient n = new ch.heigvd.NewsClient.NewsClient(port,"127.0.0.1");
+            ch.heigvd.NewsClient.NewsClient n = new ch.heigvd.NewsClient.NewsClient();
+            n.start();
         }
     }
 }
