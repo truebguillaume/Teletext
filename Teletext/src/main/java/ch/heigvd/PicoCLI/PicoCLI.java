@@ -47,9 +47,13 @@ public class PicoCLI{
             description = "Start the clients to read news.",
             mixinStandardHelpOptions = true)
     public static class NewsClient implements Runnable{
+
+        @CommandLine.Parameters(description = "Your port")
+        private int port;
+
         @Override
         public void run() {
-
+            ch.heigvd.NewsClient.NewsClient n = new ch.heigvd.NewsClient.NewsClient(port,"127.0.0.1");
         }
     }
 }
