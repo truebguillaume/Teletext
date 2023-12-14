@@ -12,7 +12,9 @@ public class NewsEmitter {
 
     public void start(String newsType) {
 
-        if(!TypeNews.mapTypeIP.containsKey(newsType.toUpperCase())){
+        newsType = newsType.toUpperCase();
+
+        if(!TypeNews.mapTypeIP.containsKey(newsType)){
             System.err.println("This type of news doesn't exist!");
         } else {
             DatagramSocket datagramSocket = null;
@@ -25,16 +27,16 @@ public class NewsEmitter {
                 while (true) {
                     String news = "";
                     switch (newsType) {
-                        case "weather":
+                        case "WEATHER":
                             news = "WEATHER " + NewsCreator.getRandomWeatherNews();
                             break;
-                        case "heig":
+                        case "HEIG":
                             news = "HEIG " + NewsCreator.getRandomHeigNews();
                             break;
-                        case "politic":
+                        case "POLITIC":
                             news = "POLITIC " + NewsCreator.getRandomPoliticNews();
                             break;
-                        case "sport":
+                        case "SPORT":
                             news = "SPORT " + NewsCreator.getRandomSportNews();
                             break;
                     }

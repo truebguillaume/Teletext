@@ -18,10 +18,7 @@ public class PicoCLI{
             mixinStandardHelpOptions = true)
     public static class NewsEmitter implements Runnable{
 
-        @CommandLine.Option(
-                names = {"-t", "--type"},
-                required = true,
-                description = "Type of news you want to emitt.")
+        @CommandLine.Parameters(description = "Type of news you want to emitt.")
         private String newsType;
 
         @Override
