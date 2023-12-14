@@ -1,5 +1,6 @@
 package ch.heigvd.PicoCLI;
 
+import ch.heigvd.NewsServer.NewsServer;
 import picocli.CommandLine;
 
 @CommandLine.Command(
@@ -17,10 +18,7 @@ public class PicoCLI{
             mixinStandardHelpOptions = true)
     public static class NewsEmitter implements Runnable{
 
-        @CommandLine.Option(
-                names = {"-t", "--type"},
-                required = true,
-                description = "Type of news you want to emitt.")
+        @CommandLine.Parameters(description = "Type of news you want to emitt.")
         private String newsType;
 
         @Override
@@ -38,7 +36,8 @@ public class PicoCLI{
     public static class NewsServer implements Runnable{
         @Override
         public void run() {
-
+            ch.heigvd.NewsServer.NewsServer server = new ch.heigvd.NewsServer.NewsServer();
+            server.start();
         }
     }
 
