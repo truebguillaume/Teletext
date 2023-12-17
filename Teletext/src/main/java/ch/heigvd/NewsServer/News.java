@@ -1,18 +1,23 @@
 package ch.heigvd.NewsServer;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class News {
     private String type;
     private String news;
+    private LocalDateTime date;
     private boolean isBreakingNews;
+    private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
-    News(String type, String[] news, boolean isBreakingNews) {
+    News(String type, String[] news, LocalDateTime date, boolean isBreakingNews) {
         this.type = type;
         this.news = Arrays.stream(news, 2, news.length)
                     .collect(Collectors.joining(" "));
-
+        this.date = LocalDateTime.now();
         this.isBreakingNews = isBreakingNews;
     }
 
@@ -30,6 +35,6 @@ public class News {
 
     @Override
     public String toString() {
-        return (isBreakingNews ? "BREAKING NEWS" : "NEWS") + " - " + type + " - " + news;
+        return (isBreakingNews ? "BREAKING NEWS" : "NEWS") + " - " + date.format(DTF) + " - " + news;
     }
 }

@@ -2,10 +2,9 @@ package ch.heigvd.NewsServer;
 
 import ch.heigvd.Shared.*;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.*;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -56,7 +55,7 @@ public class NewsServer {
                     String received = new String(packet.getData(), 0, packet.getLength());
                     String[] splitted = received.split(" ");
 
-                    News newsToAdd = new News(splitted[1], splitted, splitted[0].contains("BK"));
+                    News newsToAdd = new News(splitted[1], splitted, LocalDateTime.now(), splitted[0].contains("BK"));
                     newsList.add(newsToAdd);
                     System.out.println("Received: " + newsToAdd);
                 }
@@ -70,48 +69,82 @@ public class NewsServer {
     public class ClientServer implements Runnable{
         @Override
         public void run() {
-            DatagramSocket socket = null;
+            final int serverPort = 9876;
+
             try {
-                // Adresse IP et port du serveur
-                String serverIP = "127.0.0.1";
-                int serverPort = 5001;
+                DatagramSocket socket = new DatagramSocket(serverPort);
 
-                // Creation du socket UDP
-                socket = new DatagramSocket(serverPort);
 
-                BufferedReader consoleInput = new BufferedReader(new InputStreamReader(System.in));
 
                 while (true) {
 
-                    // Réception de la réponse du serveur
+                    // Attente du message du client
                     byte[] receiveData = new byte[1024];
                     DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                     socket.receive(receivePacket);
 
-                    // Afficher la réponse du serveur
-                    String serverResponse = new String(receivePacket.getData(), 0, receivePacket.getLength());
-                    System.out.println("Réponse du serveur: " + serverResponse);
+                    String clientMessage = new String(receivePacket.getData(), 0, receivePacket.getLength());
+                    System.out.println("Message du client : " + clientMessage);
 
-                    // Lire l'entrée de l'utilisateur
-                    System.out.print("Entrez votre commande: ");
-                    String userMessage = consoleInput.readLine();
-
-                    // Convertir le message en tableau de bytes
-                    byte[] sendData = userMessage.getBytes();
-
-                    // Créer un datagramme à envoyer au serveur
-                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName(serverIP), serverPort);
-
-                    // Envoyer le datagramme
-                    socket.send(sendPacket);
+                    // Réponse au client uniquement si le message n'est pas 'exit'
+                    if (!clientMessage.equalsIgnoreCase("exit")) {
+                        // Réponse au client
+                        String responseMessage = handleMessage(clientMessage.split(" "));
+                        byte[] sendData = responseMessage.getBytes();
+                        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, receivePacket.getAddress(), receivePacket.getPort());
+                        socket.send(sendPacket);
+                    } else {
+                        // Quitter la boucle si le client a saisi 'exit'
+                        break;
+                    }
                 }
-            } catch (IOException e) {
+
+                // Fermeture de la socket
+                socket.close();
+
+            } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
-                if (socket != null) {
-                    socket.close(); // Fermer le socket à la fin
-                }
             }
         }
+
+        private String handleMessage(String[] clientMessages) {
+            switch (clientMessages[0]) {
+                case "menu":
+                    return printMenu();
+                case "list":
+                    return printNews(clientMessages[1]);
+                default:
+                    return "Unknown command. Please retry.";
+            }
+        }
+
+        private String printMenu() {
+            StringBuilder output = new StringBuilder();
+            output.append("Please choose a news category to print with command list <categories>. \n");
+            for (String key : TypeNews.mapTypeIP.keySet()) {
+                output.append(key).append("\n");
+            }
+            output.append("BREAKING NEWS");
+            return output.toString();
+        }
+
+        private String printNews(String type) {
+            StringBuilder output = new StringBuilder();
+            for (int i = 0; i < newsList.size(); i++) {
+                News news = newsList.get(i);
+
+                if (Objects.equals(news.getType(), type.toUpperCase()) || (Objects.equals(type, "BREAKING") && news.isBreakingNews())) {
+                    output.append(news);
+
+                    if (i < newsList.size() - 1)
+                        output.append("\n");
+                }
+            }
+            if (output.length() == 0)
+                output.append("No news in this category.");
+
+            return output.toString();
+        }
+
     }
 }
