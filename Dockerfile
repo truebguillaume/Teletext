@@ -17,8 +17,8 @@ FROM eclipse-temurin:17 as app
 
 WORKDIR /app
 
-COPY --from=builder /app/target/nomdujar.jar /app/
+COPY --from=builder /app/target/Teletext-1.0-SNAPSHOT.jar /app/
 
-ENTRYPOINT ["java", "-jar", "nomdujar.jar"]
+ENTRYPOINT ["java", "-jar", "Teletext-1.0-SNAPSHOT.jar"]
 
 CMD ["--help"]
