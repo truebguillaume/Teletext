@@ -32,9 +32,7 @@ public class NewsServer {
     public class NewsReceiver implements Runnable{
         @Override
         public void run() {
-            try {
-                // Création du socket multicast
-                MulticastSocket socket = new MulticastSocket(5000);
+            try(MulticastSocket socket = new MulticastSocket(5000);) {
 
                 // Joindre chaque groupe multicast
                 for (String type : TypeNews.mapTypeIP.keySet()) {
