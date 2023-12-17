@@ -11,9 +11,9 @@ public class News {
     private String news;
     private LocalDateTime date;
     private boolean isBreakingNews;
-    private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+    private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
-    News(String type, String[] news, LocalDateTime date, boolean isBreakingNews) {
+    News(String type, String[] news, boolean isBreakingNews) {
         this.type = type;
         this.news = Arrays.stream(news, 2, news.length)
                     .collect(Collectors.joining(" "));
@@ -35,6 +35,6 @@ public class News {
 
     @Override
     public String toString() {
-        return (isBreakingNews ? "BREAKING NEWS" : "NEWS") + " - " + date.format(DTF) + " - " + news;
+        return (isBreakingNews ? "BREAKING NEWS" : "NEWS         ") + " - " + date.format(DTF) + " - " + news;
     }
 }

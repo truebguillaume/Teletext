@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class NewsEmitter {
 
-    int port = 5000;
+    final static int PORT = 5000;
 
     public void start(String newsType) {
 
@@ -53,7 +53,7 @@ public class NewsEmitter {
                     // Creation du datagramm
                     byte[] data = news.getBytes();
                     InetAddress address = InetAddress.getByName(TypeNews.mapTypeIP.get(newsType));
-                    DatagramPacket packet = new DatagramPacket(data, data.length, address, port);
+                    DatagramPacket packet = new DatagramPacket(data, data.length, address, PORT);
 
                     // Envoie du datagramm
                     datagramSocket.send(packet);

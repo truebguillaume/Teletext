@@ -1,19 +1,19 @@
 package ch.heigvd.NewsClient;
 
-import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
 public class NewsClient {
 
     public void start() {
-        final int serverPort = 9876;
+        final int serverPort = 5001;
 
         try {
             DatagramSocket socket = new DatagramSocket();
             Scanner scanner = new Scanner(System.in);
 
-            byte[] sendData = "menu".getBytes();
+            // Envoi le code menu à la connexion pour afficher celui-ci
+            byte[] sendData = "welcome".getBytes();
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("localhost"), serverPort);
             socket.send(sendPacket);
 
@@ -25,7 +25,9 @@ public class NewsClient {
                 socket.receive(receivePacket);
 
                 String receivedMessage = new String(receivePacket.getData(), 0, receivePacket.getLength());
-                System.out.println(receivedMessage);
+
+                String[]  splitMessage = receivedMessage.split(" ");
+                handleMessage(splitMessage);
 
                 // L'utilisateur saisit le message à envoyer
                 System.out.print("> ");
@@ -48,6 +50,34 @@ public class NewsClient {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void handleMessage(String[] messages) {
+        if(messages[0].equals("TXT")) {
+            for(int i = 1 ; i < messages.length ; ++i)
+                System.out.print(messages[i] + " ");
+        }
+        else if(messages[0].equals("ERR")){
+            handleError(messages[1]);
+        }
+        System.out.println();
+    }
+
+    private void handleError(String errorCode) {
+        switch(errorCode) {
+            case "100":
+                System.err.println("Unknown command, please retry.");
+                break;
+            case "200":
+                System.err.println("Actually, there is no news in this category.");
+                break;
+            case "201":
+                System.err.println("Actually, this category does not exist.");
+                break;
+            default:
+                System.err.println("Error, something went wrong.");
+                break;
         }
     }
 }

@@ -1,6 +1,5 @@
 package ch.heigvd.PicoCLI;
 
-import ch.heigvd.NewsServer.NewsServer;
 import picocli.CommandLine;
 
 @CommandLine.Command(
@@ -14,7 +13,7 @@ public class PicoCLI{
     @CommandLine.Command(
             name = "emitter",
             version = "1.0",
-            description = "Start the emitters.",
+            description = "Start the emitters. [weather, heig, politic, sport]",
             mixinStandardHelpOptions = true)
     public static class NewsEmitter implements Runnable{
 
