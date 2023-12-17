@@ -1,0 +1,14 @@
+ch/heigvd/NewsServer/NewsServer$NewsReceiver.class
+ch/heigvd/NewsServer/News.class
+ch/heigvd/PicoCLI/PicoCLI$NewsEmitter.class
+ch/heigvd/NewsServer/NewsServer$ClientServer.class
+ch/heigvd/Main.class
+ch/heigvd/NewsServer/NewsServer.class
+ch/heigvd/Shared/TypeNews$1.class
+ch/heigvd/PicoCLI/PicoCLI$NewsClient.class
+ch/heigvd/PicoCLI/PicoCLI.class
+ch/heigvd/NewsEmitter/NewsCreator.class
+ch/heigvd/PicoCLI/PicoCLI$NewsServer.class
+ch/heigvd/Shared/TypeNews.class
+ch/heigvd/NewsEmitter/NewsEmitter.class
+ch/heigvd/NewsClient/NewsClient.class
