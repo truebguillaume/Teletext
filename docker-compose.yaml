@@ -1,0 +1,60 @@
+name: dai-labo-3
+
+networks:
+  network:
+    name: network
+
+services:
+  news-emitter:
+    image: ghcr.io/gwendalpiemonte/Teletext:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - network
+    command:
+      - emitter
+      - --type=weather
+
+  news-emitter:
+    image: ghcr.io/gwendalpiemonte/Teletext:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - network
+    command:
+      - emitter
+      - --type=heig
+
+  news-emitter:
+    image: ghcr.io/gwendalpiemonte/Teletext:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - network
+    command:
+      - emitter
+      - --type=politic
+
+  news-emitter:
+    image: ghcr.io/gwendalpiemonte/Teletext:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - network
+    command:
+      - emitter
+      - --type=sport
+
+  news-server:
+    image: ghcr.io/gwendalpiemonte/Teletext:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - network
+    command:
+      - server

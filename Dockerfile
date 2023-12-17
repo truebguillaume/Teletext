@@ -17,8 +17,8 @@ FROM eclipse-temurin:17 as app
 
 WORKDIR /app
 
-COPY --from=builder /app/target/dai-labo-3-1.0-SNAPSHOT.jar /app/
+COPY --from=builder /app/target/nomdujar.jar /app/
 
-ENTRYPOINT ["java", "-jar", "dai-labo-3-1.0-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "nomdujar.jar"]
 
 CMD ["--help"]
