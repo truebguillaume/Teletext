@@ -96,3 +96,5 @@ Command: `???`
 
 
 ## 4 - Examples
+
+![protocol](/Documentation/protocol.drawio.png)
