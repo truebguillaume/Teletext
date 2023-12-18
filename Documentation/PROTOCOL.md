@@ -31,6 +31,12 @@ Command : `emitter <type> [weather, heig, politic, sport]`
 | ---- | ---- |
 |_no response_|The news emitter will start multicasting news on the network.|
 
+#### Send a news 
+Command : `<importance> [NW = news, BK = breaking news]  <type> [WEATHER, HEIG, POLITIC, SPORT] <news>`
+|Response|Detail|
+| ---- | ---- |
+|_no response_|The news is sent|
+
 
 ### 3.3 - Clients
 #### Connect the client to the teletext server
