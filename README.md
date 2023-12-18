@@ -76,7 +76,7 @@ if it's an emitter dont forget to add the type of emitter you want. [weather, he
 # Connect to the ghcr
 export GITHUB_CR_PAT=MY_TOKEN
 echo $GITHUB_CR_PAT | docker login ghcr.io -u <your_github_account> --password-stdin
-docker tag java-udp-programming ghcr.io/<your_github_account>/teletext
+docker tag teletext ghcr.io/<your_github_account>/teletext
 docker push ghcr.io/<your_github_account>/teletext
 ```
 
