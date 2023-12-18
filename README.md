@@ -6,7 +6,7 @@
 ## Description
 Teletext is a multi users UDP application who looks like the ancien teletext.    
 You can connect to the teletext server and check news on various subjects.   
-The app use the Teletext protocol, you can find the information about it [here.](/Documentation/PROTOCOL.md)
+The app use the Teletext protocol, you can find the information about it [here.](/docs/PROTOCOL.md)
 
 
 ## Building the app

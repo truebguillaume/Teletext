@@ -97,4 +97,4 @@ Command: `???`
 
 ## 4 - Examples
 
-![protocol](/Documentation/protocol.drawio.png)
+![protocol](/docs/protocol.drawio.png)
