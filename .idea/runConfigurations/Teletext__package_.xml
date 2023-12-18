@@ -40,7 +40,7 @@
             <list />
           </option>
           <option name="resolveToWorkspace" value="false" />
-          <option name="workingDirPath" value="$PROJECT_DIR$/Teletext" />
+          <option name="workingDirPath" value="$PROJECT_DIR$/Sources" />
         </MavenRunnerParameters>
       </option>
     </MavenSettings>
