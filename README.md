@@ -53,25 +53,37 @@ java -jar Teletext-v1.0.jar client
 
 ## Docker and Docker compose
 You can also use this app with Docker by using the project's [Dockerfile]().   
-This will allow you to launch an instance of an emitter, a server, or a client.
+This will allow you to launch an instance of an emitter, a server, or a client.   
+
+Please clone the projet and then enter this command in the directory where you can find the Dockerfile.
 
 ### Build the Docker image
 ```sh
-docker build <path_to_the_Dockerfile>
+mvn wrapper:wrapper
+
+docker build -t ghcr.io/<your_github_account>/teletext .
 ```
 
 ### Run the Docker image
 ```sh
-docker run <path_to_the_Dockerfile> <type> [server, emitter, client]
+docker run ghcr.io/<your_github_account>/teletext <type> [server, emitter, client]
 ```
 if it's an emitter dont forget to add the type of emitter you want. [weather, heig, politic, sport]
+
+### Publish the Docker image
+
+```sh
+# Connect to the ghcr
+export GITHUB_CR_PAT=MY_TOKEN
+echo $GITHUB_CR_PAT | docker login ghcr.io -u <your_github_account> --password-stdin
+docker tag java-udp-programming ghcr.io/<your_github_account>/teletext
+docker push ghcr.io/<your_github_account>/teletext
+```
 
 There is also a [docke-compose.yaml]() file. You can compose it up, it will start a server and 4 news emitters.   
 After that, you are free to start by yourself the number of client you want by unsing the [Dockerfile]() or the [.jar]() file.
 
-### Compose the docker-compose.yaml file up
+### Compose the docker-compose.yaml file up int the directory where there is the .yaml file
 ```sh
-docker compose up <path_to_the_Dockerfile>
+docker compose up
 ```
-
-
