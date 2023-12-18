@@ -1,13 +1,12 @@
-# Teletext
-
 <div align="center">
-<img src="docs/teletext.jpg" width="400" alt="Logo"/>
+<h1 align="center">Teletext</h1>
+<h4>The only way to inform you!</h4>
+<hr>
+<img src="docs/teletext.jpg" width="600" alt="Logo"/>
 </div>
 
 ## Description
-Teletext is a multi users UDP application who looks like the ancien teletext.    
-You can connect to the teletext server and check news on various subjects.   
-The app use the Teletext protocol, you can find the information about it [here.](/docs/PROTOCOL.md)
+Teletext is a multi users UDP application who looks like the ancien teletext. You can connect to the teletext server and check news on various subjects. The app use the Teletext protocol, you can find the information about it [here.](/docs/PROTOCOL.md)
 
 
 ## Building the app
