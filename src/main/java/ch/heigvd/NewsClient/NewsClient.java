@@ -48,7 +48,7 @@ public class NewsClient {
             socket.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 

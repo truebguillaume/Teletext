@@ -20,21 +20,13 @@ public class NewsEmitter {
 
                 // Boucle d'emission
                 while (true) {
-                    String news = "";
-                    switch (newsType) {
-                        case "WEATHER":
-                            news = "WEATHER " + NewsCreator.getRandomWeatherNews();
-                            break;
-                        case "HEIG":
-                            news = "HEIG " + NewsCreator.getRandomHeigNews();
-                            break;
-                        case "POLITIC":
-                            news = "POLITIC " + NewsCreator.getRandomPoliticNews();
-                            break;
-                        case "SPORT":
-                            news = "SPORT " + NewsCreator.getRandomSportNews();
-                            break;
-                    }
+                    String news = switch (newsType) {
+                        case "WEATHER" -> "WEATHER " + NewsCreator.getRandomWeatherNews();
+                        case "HEIG" -> "HEIG " + NewsCreator.getRandomHeigNews();
+                        case "POLITIC" -> "POLITIC " + NewsCreator.getRandomPoliticNews();
+                        case "SPORT" -> "SPORT " + NewsCreator.getRandomSportNews();
+                        default -> "";
+                    };
 
                     // Choix des Breaking news
                     Random random = new Random();
@@ -62,7 +54,7 @@ public class NewsEmitter {
                 }
 
             } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+                e.getMessage();
             }
         }
     }
