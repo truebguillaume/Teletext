@@ -2,14 +2,12 @@
 
 ![teletext](/teletext.jpg)
 
----
 
 ## Description
 Teletext is a multi users UDP application who looks like the ancien teletext.    
 You can connect to the teletext server and check news on various subjects.   
 The app use the Teletext protocol, you can find the information about it [here.](/Documentation/PROTOCOL.md)
 
----
 
 ## Building the app
 The app use maven  so in order to build and package the app use this command.
@@ -21,7 +19,6 @@ The app use maven  so in order to build and package the app use this command.
 # Package the application
 ./mvnw package
 ```
----
 
 ## Running the app
 Download the .jar file into the lastest [release]() and run the command explained under this text. 
@@ -29,17 +26,13 @@ You can also download the source code and build the code with Maven but make sur
 
 ### Launch the teletext server
 
-The port's value is by default `5000`
-
 ```sh
-java -jar <path-to-jar> server -a <address> -p <port>
+java -jar <path-to-jar> server
 
 # Example
-java -jar Teletext-v1.0.jar server --address 127.0.0.1
+java -jar Teletext-v1.0.jar server
 ```
 ### Launch a news emiter 
-
-The port's value is by default `5000`
 
 ```sh
 java -jar <path-to-jar> emitter <type> [weather, heig, politic, sport]
@@ -51,18 +44,12 @@ java -jar Teletext-v1.0.jar emitter sport
 ### Launch a client
 
 ```sh
-java -jar <path-to-jar> client -a <address> -p <port>
+java -jar <path-to-jar> client
 
 # Example
-java -jar Teletext-v1.0.jar client --address 127.0.0.1 --port 11111
+java -jar Teletext-v1.0.jar client
 ```
 
-### Description
-
-- `-a, --address <IP address>`: IP address to connect.
-- `-p, --port <port>`: Port to connect.
-
----
 
 ## Docker and Docker compose
 You can also use this app with Docker by using the project's [Dockerfile]().   
@@ -87,4 +74,4 @@ After that, you are free to start by yourself the number of client you want by u
 docker compose up <path_to_the_Dockerfile>
 ```
 
----
+
