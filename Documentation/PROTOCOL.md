@@ -20,7 +20,7 @@
 
 ### 3.1 - Servers
 #### Start the server 
-Command : ` server`
+Command : `server`
 |Response|Detail|
 | ---- | ---- |
 |_no response_|The teltext server will wait for new client connections and retrieve the news emitted by the emitters.|
