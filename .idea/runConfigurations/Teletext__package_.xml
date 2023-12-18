@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Teletext [dependency:resolve,clean...]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+  <configuration default="false" name="Teletext [package]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
     <MavenSettings>
       <option name="myGeneralSettings">
         <MavenGeneralSettings>
@@ -9,15 +9,13 @@
           <option name="failureBehavior" value="NOT_SET" />
           <option name="localRepository" value="" />
           <option name="mavenHome" value="Use Maven wrapper" />
-          <option name="mavenHomeType">
-            <MavenHomeType />
-          </option>
           <option name="nonRecursive" value="false" />
           <option name="outputLevel" value="INFO" />
           <option name="printErrorStackTraces" value="false" />
           <option name="showDialogWithAdvancedSettings" value="false" />
           <option name="threads" />
           <option name="useMavenConfig" value="true" />
+          <option name="usePluginRegistry" value="false" />
           <option name="userSettingsFile" value="" />
           <option name="workOffline" value="false" />
         </MavenGeneralSettings>
@@ -31,13 +29,9 @@
           </option>
           <option name="goals">
             <list>
-              <option value="dependency:resolve" />
-              <option value="clean" />
-              <option value="compile" />
               <option value="package" />
             </list>
           </option>
-          <option name="multimoduleDir" />
           <option name="pomFileName" />
           <option name="profilesMap">
             <map />
