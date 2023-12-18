@@ -1,7 +1,7 @@
 # Teletext
 
 <div align="center">
-<img src="https://github.com/truebguillaume/docs/teletext.jpg" width="400" alt="Logo"/>
+<img src="docs/teletext.jpg" width="400" alt="Logo"/>
 </div>
 
 ## Description
