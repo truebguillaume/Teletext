@@ -1,7 +1,8 @@
 # Teletext
 
+<div align="center">
 ![teletext](/teletext.jpg)
-
+</div>
 
 ## Description
 Teletext is a multi users UDP application who looks like the ancien teletext.    
