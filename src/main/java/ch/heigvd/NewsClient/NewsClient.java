@@ -5,8 +5,7 @@ import java.util.Scanner;
 
 public class NewsClient {
 
-    public void start() {
-        final int serverPort = 5001;
+    public void start(int serverPort) {
 
         try {
             DatagramSocket socket = new DatagramSocket();
@@ -20,7 +19,7 @@ public class NewsClient {
             while (true) {
 
                 // Attente de la réponse du serveur
-                byte[] receiveData = new byte[1024];
+                byte[] receiveData = new byte[10240];
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 socket.receive(receivePacket);
 
@@ -49,7 +48,7 @@ public class NewsClient {
             socket.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 
@@ -70,10 +69,10 @@ public class NewsClient {
                 System.err.println("Unknown command, please retry.");
                 break;
             case "200":
-                System.err.println("Actually, there is no news in this category.");
+                System.err.println("Currently, there is no news in this category.");
                 break;
             case "201":
-                System.err.println("Actually, this category does not exist.");
+                System.err.println("Currently, this category does not exist.");
                 break;
             default:
                 System.err.println("Error, something went wrong.");
