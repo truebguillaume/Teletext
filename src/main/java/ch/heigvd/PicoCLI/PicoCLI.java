@@ -20,23 +20,36 @@ public class PicoCLI{
         @CommandLine.Parameters(description = "Type of news you want to emitt.")
         private String newsType;
 
+        @CommandLine.Option(
+                names = {"-n", "--news"},
+                description = "Port to listen news.")
+        private int portNews = 5000;
+
         @Override
         public void run() {
             ch.heigvd.NewsEmitter.NewsEmitter e = new ch.heigvd.NewsEmitter.NewsEmitter();
-            e.start(newsType);
+            e.start(newsType, portNews);
         }
     }
 
     @CommandLine.Command(
             name = "server",
             version = "1.0",
-            description = "Start the server that get news emitted.",
+            description = "Start the server that retrieve news emitted and exposed them to clients.",
             mixinStandardHelpOptions = true)
     public static class NewsServer implements Runnable{
+        @CommandLine.Option(
+                names = {"-n", "--news"},
+                description = "Port to listen news.")
+        private int portNews = 5000;
+        @CommandLine.Option(
+                names = {"-c", "--client"},
+                description = "Port to listen clients.")
+        private int portClient = 5001;
         @Override
         public void run() {
             ch.heigvd.NewsServer.NewsServer server = new ch.heigvd.NewsServer.NewsServer();
-            server.start();
+            server.start(portNews, portClient);
         }
     }
 
@@ -47,13 +60,15 @@ public class PicoCLI{
             mixinStandardHelpOptions = true)
     public static class NewsClient implements Runnable{
 
-        //@CommandLine.Parameters(description = "Your port")
-        //private int port;
+        @CommandLine.Option(
+                names = {"-p", "--port"},
+                description = "Port to connect.")
+        private int port = 5001;
 
         @Override
         public void run() {
             ch.heigvd.NewsClient.NewsClient n = new ch.heigvd.NewsClient.NewsClient();
-            n.start();
+            n.start(port);
         }
     }
 }

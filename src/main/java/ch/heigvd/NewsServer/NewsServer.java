@@ -19,13 +19,13 @@ public class NewsServer {
      * Le premier thread: gère la réception des messages envoyés par les différents émetteurs
      * Le deuxième thread: gère la connexion des clients sur le serveur
      */
-    public void start() {
+    public void start(int portNews, int portClient) {
         // The number of threads in the pool must be the same as the number of tasks you want to run in parallel
         ExecutorService executorService = Executors.newFixedThreadPool(2);
 
         try {
-            executorService.submit(new NewsReceiver()); // Start the first task
-            executorService.submit(new ClientServer()); // Start the second task
+            executorService.submit(new NewsReceiver(portNews)); // Start the first task
+            executorService.submit(new ClientServer(portClient)); // Start the second task
 
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS); // Wait for termination
         } catch (Exception e) {
@@ -39,9 +39,16 @@ public class NewsServer {
      * Classe implémentant l'interface Runnable et permet de démarrer le serveur récupèrant les news.
      */
     public class NewsReceiver implements Runnable{
+
+        int serverPort;
+
+        public NewsReceiver(int listeningPort) {
+            serverPort = listeningPort;
+        }
+
         @Override
         public void run() {
-            try(MulticastSocket socket = new MulticastSocket(5000);) {
+            try(MulticastSocket socket = new MulticastSocket(serverPort);) {
 
                 // Joindre chaque groupe multicast
                 for (String type : TypeNews.mapTypeIP.keySet()) {
@@ -81,14 +88,21 @@ public class NewsServer {
      */
     public class ClientServer implements Runnable{
 
+        int serverPort;
+
+        public ClientServer(int listeningPort) {
+            serverPort = listeningPort;
+        }
+
         private final static String TXTCODE = "TXT ", ERRCODE = "ERR ";
 
         @Override
         public void run() {
-            final int serverPort = 5001;
 
             try (DatagramSocket socket = new DatagramSocket(serverPort);) {
                 while (true) {
+
+                    System.out.println("The server has started to listening to news!");
 
                     // Attente du message du client
                     byte[] receiveData = new byte[1024];
@@ -120,8 +134,8 @@ public class NewsServer {
                 case "welcome" -> printCommandMenu();
                 case "help" -> TXTCODE + printHelpMenu();
                 case "menu" -> printNewsMenu();
-                case "list" -> clientMessages.length > 1 ? listNews(clientMessages[1]) : ERRCODE + "201";
-                case "count" -> clientMessages.length > 1 ? countNews(clientMessages[1]) : ERRCODE + "201";
+                case "list" -> clientMessages.length == 2 ? listNews(clientMessages[1]) : ERRCODE + "201";
+                case "count" -> clientMessages.length == 2 ? countNews(clientMessages[1]) : ERRCODE + "201";
                 default -> ERRCODE + "100";
             };
         }

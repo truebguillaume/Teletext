@@ -8,20 +8,15 @@ import java.util.Random;
 
 public class NewsEmitter {
 
-    final static int PORT = 5000;
-
-    public void start(String newsType) {
+    public void start(String newsType, int emissionPort) {
 
         newsType = newsType.toUpperCase();
 
         if(!TypeNews.mapTypeIP.containsKey(newsType)){
             System.err.println("This type of news doesn't exist!");
         } else {
-            DatagramSocket datagramSocket = null;
 
-            try {
-                // Création du socket UDP
-                datagramSocket = new DatagramSocket();
+            try (DatagramSocket datagramSocket = new DatagramSocket()) {
 
                 // Boucle d'emission
                 while (true) {
@@ -44,23 +39,23 @@ public class NewsEmitter {
                     // Choix des Breaking news
                     Random random = new Random();
                     int randomNumber = random.nextInt(5);
-                    if(randomNumber == 4){
+                    if (randomNumber == 4) {
                         news = "BK " + news;
-                    }else {
+                    } else {
                         news = "NW " + news;
                     }
 
                     // Creation du datagramm
                     byte[] data = news.getBytes();
                     InetAddress address = InetAddress.getByName(TypeNews.mapTypeIP.get(newsType));
-                    DatagramPacket packet = new DatagramPacket(data, data.length, address, PORT);
+                    DatagramPacket packet = new DatagramPacket(data, data.length, address, emissionPort);
 
                     // Envoie du datagramm
                     datagramSocket.send(packet);
                     System.out.println("> News sent (" + newsType + ") on " + address);
 
 
-                    randomNumber = (random.nextInt(26) + 5)*1000; // de 5 a 30
+                    randomNumber = (random.nextInt(26) + 5) * 1000; // de 5 a 30
 
                     // Attente avant d'envoyer la prochaine nouvelle (10 secondes)
                     Thread.sleep(randomNumber);
@@ -68,10 +63,6 @@ public class NewsEmitter {
 
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
-            } finally {
-                if (datagramSocket != null) {
-                    datagramSocket.close();
-                }
             }
         }
     }
