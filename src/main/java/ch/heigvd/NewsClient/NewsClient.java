@@ -20,7 +20,7 @@ public class NewsClient {
             while (true) {
 
                 // Attente de la réponse du serveur
-                byte[] receiveData = new byte[1024];
+                byte[] receiveData = new byte[10240];
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
                 socket.receive(receivePacket);
 

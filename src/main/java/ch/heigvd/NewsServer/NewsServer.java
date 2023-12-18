@@ -4,7 +4,6 @@ import ch.heigvd.Shared.*;
 
 import java.io.IOException;
 import java.net.*;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -12,10 +11,17 @@ import java.util.concurrent.TimeUnit;
 
 public class NewsServer {
 
-    private final List<News> newsList = new ArrayList<>();
+    // Structure permettant d'insérer efficacement en début de containeur
+    private final List<News> newsList = Collections.synchronizedList(new LinkedList<>());
 
+    /**
+     * Méthode permettant de démarrer un NewsServer qui gère deux thread.
+     * Le premier thread: gère la réception des messages envoyés par les différents émetteurs
+     * Le deuxième thread: gère la connexion des clients sur le serveur
+     */
     public void start() {
-        ExecutorService executorService = Executors.newFixedThreadPool(2); // The number of threads in the pool must be the same as the number of tasks you want to run in parallel
+        // The number of threads in the pool must be the same as the number of tasks you want to run in parallel
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
 
         try {
             executorService.submit(new NewsReceiver()); // Start the first task
@@ -23,12 +29,15 @@ public class NewsServer {
 
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS); // Wait for termination
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         } finally {
             executorService.shutdown();
         }
     }
 
+    /**
+     * Classe implémentant l'interface Runnable et permet de démarrer le serveur récupèrant les news.
+     */
     public class NewsReceiver implements Runnable{
         @Override
         public void run() {
@@ -42,7 +51,10 @@ public class NewsServer {
 
                 byte[] buffer = new byte[1024];
 
+                // Récupère les données venant des émetteurs
                 while (true) {
+
+                    // Récéption de la news
                     DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                     socket.receive(packet);
 
@@ -50,17 +62,23 @@ public class NewsServer {
                     String received = new String(packet.getData(), 0, packet.getLength());
                     String[] splitted = received.split(" ");
 
+                    // Ajoute une news dans notre structure de données
                     News newsToAdd = new News(splitted[1], splitted, splitted[0].contains("BK"));
-                    newsList.add(newsToAdd);
+                    newsList.add(0, newsToAdd);
+
+                    // Print de la news reçue sur le serveur
                     System.out.println("Received: " + newsToAdd);
                 }
 
             } catch (IOException e) {
-                e.printStackTrace();
+                e.getMessage();
             }
         }
     }
 
+    /**
+     * Classe implémentant l'interface Runnable et permet de démarrer les échanges avec les clients
+     */
     public class ClientServer implements Runnable{
 
         private final static String TXTCODE = "TXT ", ERRCODE = "ERR ";
@@ -69,9 +87,7 @@ public class NewsServer {
         public void run() {
             final int serverPort = 5001;
 
-            try {
-                DatagramSocket socket = new DatagramSocket(serverPort);
-
+            try (DatagramSocket socket = new DatagramSocket(serverPort);) {
                 while (true) {
 
                     // Attente du message du client
@@ -80,7 +96,7 @@ public class NewsServer {
                     socket.receive(receivePacket);
 
                     String clientMessage = new String(receivePacket.getData(), 0, receivePacket.getLength());
-                    System.out.println("Message du client : " + clientMessage);
+                    System.out.println("Client " + receivePacket.getAddress() + " says : " + clientMessage);
 
                     // Réponse au client
                     String responseMessage = handleMessage(clientMessage.split(" "));
@@ -90,62 +106,80 @@ public class NewsServer {
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
+                e.getMessage();
             }
         }
 
+        /**
+         * Méthode permettant de gérer les messages reçu par les utilisateurs
+         * @param clientMessages = tableau de messages splité sur le char " "
+         * @return le message à envoyer au client
+         */
         private String handleMessage(String[] clientMessages) {
-            switch (clientMessages[0]) {
-                case "welcome":
-                    return printCommandMenu();
-                case "help":
-                    return TXTCODE + printHelpMenu();
-                case "menu":
-                    return printNewsMenu();
-                case "list":
-                    return clientMessages.length > 1 ? listNews(clientMessages[1]) : ERRCODE + "201";
-                case "count":
-                    return clientMessages.length > 1 ? countNews(clientMessages[1]) : ERRCODE + "201";
-                default:
-                    return ERRCODE + "100";
-            }
+            return switch (clientMessages[0]) {
+                case "welcome" -> printCommandMenu();
+                case "help" -> TXTCODE + printHelpMenu();
+                case "menu" -> printNewsMenu();
+                case "list" -> clientMessages.length > 1 ? listNews(clientMessages[1]) : ERRCODE + "201";
+                case "count" -> clientMessages.length > 1 ? countNews(clientMessages[1]) : ERRCODE + "201";
+                default -> ERRCODE + "100";
+            };
         }
 
+        /**
+         * Prépare le message d'accueil
+         * @return le message à envoyer au client
+         */
         private String printCommandMenu() {
             return TXTCODE + "TELETEXT - The only way to inform you!\n" +
                     "Here you will have different canals in which you will find the latest news.\n" +
+                    "----------------------------------------------- \n" +
                     printHelpMenu();
         }
 
+        /**
+         * Prépare le menu des commandes
+         * @return le message à envoyer au client
+         */
         private String printHelpMenu() {
-            return "A summary of availables commands : \n" +
+            return "A summary of available commands : \n" +
                     "- help : print a menu with all available commands\n" +
                     "- menu : list all existing categories\n" +
                     "- list <category> : list the news for the selected category\n" +
                     "- count <category> : print the number of the news for the selected category\n" +
-                    "- exit : quit the application";
+                    "- exit : quit the application\n ";
         }
 
+        /**
+         * Prépare la liste de type de news disponibles
+         * @return le message à envoyer au client
+         */
         private String printNewsMenu() {
             StringBuilder output = new StringBuilder();
-            output.append(TXTCODE + "Please choose a news category to list with command list <category>. \n");
+            output.append(TXTCODE + "Please choose a news category to list with command list <category> or to count with count <category> \n");
             for (String key : TypeNews.newsListUserChoice) {
                 output.append(key).append("\n");
             }
             return output.toString();
         }
 
+        /**
+         * Prépare la liste de news à envoyer au client en fonction de la catégorie choisie
+         * @param category = catégorie de news a prendre en compte
+         * @return le message à envoyer au client
+         */
         private String listNews(String category) {
             StringBuilder output = new StringBuilder();
             if(checkCategory(category).contains(ERRCODE))
                 return checkCategory(category);
             for (News news : newsList) {
                 if(Objects.equals(news.getType(), category.toUpperCase()) ||
-                        (Objects.equals(category.toUpperCase(), "BREAKING NEWS") && news.isBreakingNews())){
+                        (Objects.equals(category.toUpperCase(), "BREAKING") && news.isBreakingNews()) ||
+                        (Objects.equals(category.toUpperCase(), "LATEST"))) {
                     output.append(news).append("\n");
                 }
             }
-            if(output.length() == 0)
+            if(output.isEmpty())
                 output.append(ERRCODE + "200");
             else
                 output.insert(0, TXTCODE);
@@ -153,19 +187,30 @@ public class NewsServer {
             return output.toString();
         }
 
+        /**
+         * Prépare le comptage de news dans la cotegorie choisie
+         * @param category = catégorie de news a prendre en compte
+         * @return le message à envoyer au client
+         */
         private String countNews(String category) {
             int count = 0;
             if(checkCategory(category).contains(ERRCODE))
                 return checkCategory(category);
             for (News news : newsList) {
                 if(Objects.equals(news.getType(), category.toUpperCase()) ||
-                        (Objects.equals(category.toUpperCase(), "BREAKING NEWS") && news.isBreakingNews())){
+                        (Objects.equals(category.toUpperCase(), "BREAKING") && news.isBreakingNews()) ||
+                        (Objects.equals(category.toUpperCase(), "LATEST"))) {
                     count++;
                 }
             }
-            return TXTCODE + count;
+            return TXTCODE + count + " news \n";
         }
 
+        /**
+         * Check si la catégorie choisie est existante
+         * @param category = catégorie de news a prendre en compte
+         * @return le message à envoyer au client
+         */
         private String checkCategory(String category) {
             if(!TypeNews.newsListUserChoice.contains(category.toUpperCase()))
                 return ERRCODE + "201";

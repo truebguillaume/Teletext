@@ -17,6 +17,7 @@ public class TypeNews {
         for (String key : TypeNews.mapTypeIP.keySet()) {
             add(key);
         }
-        add("BREAKING NEWS");
+        add("BREAKING");
+        add("LATEST");
     }};
 }
