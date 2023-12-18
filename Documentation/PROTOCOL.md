@@ -43,7 +43,7 @@ Command : `<importance> [NW = news, BK = breaking news]  <type> [WEATHER, HEIG, 
 Command: `client`
 |Response|Detail|
 | ---- | ---- |
-|`_no response_`|Try to connect to the teletext server|
+|_no response_|Try to connect to the teletext server|
 
 #### When the connection with the server is established (auto send)
 Command: `welcome`
@@ -83,7 +83,7 @@ Command: `count <category> [weather, heig, politic, sport]`
 Command: `exit`
 |Response|Detail|
 | ---- | ---- |
-|`_no response_`|Disconnect the client from the teletext server|
+|_no response_|Disconnect the client from the teletext server|
 
 #### If you try an unkown command
 Command: `???`
