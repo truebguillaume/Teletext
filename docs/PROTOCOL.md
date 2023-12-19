@@ -28,7 +28,7 @@ Command : `server -n <port to receive news (def => 5000)> -c <port to make news 
 
 ### 3.2 - Emitters
 #### Start the news emitter 
-Command : `emitter <type> [weather, heig, politic, sport] -n <port to receive news (def => 5000)>`
+Command : `emitter <type> [weather, heig, politic, sport] -n <port to send news (def => 5000)>`
 |Response|Detail|
 | ---- | ---- |
 |_no response_|The news emitter will start multicasting news on the network|
@@ -42,7 +42,7 @@ Command : `<importance> [NW = news, BK = breaking news]  <type> [WEATHER, HEIG, 
 
 ### 3.3 - Clients
 #### Connect the client to the teletext server
-Command: `client -c <port to make news available (def => 5001)>`
+Command: `client -c <port to get news (def => 5001)>`
 |Response|Detail|
 | ---- | ---- |
 |_no response_|Try to connect to the teletext server|
