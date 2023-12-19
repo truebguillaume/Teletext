@@ -112,7 +112,7 @@ It will pull the image from the ghcr.
 docker compose up
 ```
 
-You can also use this app by using the project's [Package]().   
+You can also use this app by using the project's [Package](https://github.com/users/truebguillaume/packages/container/package/teletext).   
 This will allow you to launch an instance of an emitter, a server, or a client.   
 
 ### Pull the Docker package
