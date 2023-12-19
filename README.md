@@ -62,7 +62,7 @@ git clone https://github.com/truebguillaume/Teletext.git
 Then go to the project directory and package the app with maven to get the jar file.
 
 
-### Package the project: 
+### Package the project
 ```sh
 # Download the dependencies
 ./mvnw dependency:resolve
@@ -73,7 +73,7 @@ Then go to the project directory and package the app with maven to get the jar f
 
 After that you will be able to build a Docker image.
 
-### Build the image: 
+### Build the image
 ```sh
 docker build -t ghcr.io/<your_github_account>/teletext .
 ```
