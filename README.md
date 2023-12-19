@@ -90,7 +90,7 @@ docker push ghcr.io/<your_github_account>/teletext:latest
 
     
 There is also a [docke-compose.yaml]() file. You can compose it up, it will start a server and 4 news emitters.   
-After that, you are free to start by yourself the number of client you want by unsing the [Dockerfile]() or the [.jar]() file.   
+After that, you are free to start by yourself the number of client you want by unsing a Docker image or a [.jar]() file.   
 
 In the directory containing the docker-compose.yml use the following command.
 
@@ -107,7 +107,7 @@ It will pull the image from the ghcr.
 docker compose up
 ```
 
-You can also use this app with Docker by using the project's [Package]().   
+You can also use this app by using the project's [Package]().   
 This will allow you to launch an instance of an emitter, a server, or a client.   
 
 ### Pull the Docker package
