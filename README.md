@@ -75,7 +75,7 @@ After that you will be able to build a Docker image.
 
 ### Build the image: 
 ```sh
-docker build -t ghcr.io/truebguillaume/teletext .
+docker build -t ghcr.io/<your_github_account>/teletext .
 ```
 
 ### Publish the Docker image on the ghcr
@@ -84,8 +84,8 @@ docker build -t ghcr.io/truebguillaume/teletext .
 # Connect to the ghcr
 export GITHUB_CR_PAT=YOUR_TOKEN
 echo $GITHUB_CR_PAT | docker login ghcr.io -u <your_github_account> --password-stdin
-docker tag teletext ghcr.io/truebguillaume/teletext
-docker push ghcr.io/truebguillaume/teletext:latest
+docker tag teletext ghcr.io/<your_github_account>/teletext
+docker push ghcr.io/<your_github_account>/teletext:latest
 ```
 
     
