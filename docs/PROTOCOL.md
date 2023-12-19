@@ -10,8 +10,8 @@
 ## 2 - Transport protocol
 - The Teletetx protocol uses the `UDP protocol`.
 - The server runs on the ports `5000` and `5001`. (`5000` -> listening to the news emitters and `5001` -> listening to the clients)
-- The client has to know the IP address of the server to connect to. The client establishes the connection with the server **(unicast)**.
-- The emitters send news across the network and the server store them  **(multicast)**.
+- The client establishes the connection with the server using **(unicast)**.
+- The emitters send news across the network and the server store them, they use  **(multicast)**.
 - The connection between the client and the server stops either when the client enters the command to disconnect or if an error occurs.
 - There is no connection between the server and the emitters because that's UDP multicast.
 
