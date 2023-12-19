@@ -210,7 +210,6 @@ public class NewsCreator {
                 "Une compétition de gymnastique rythmique présente des chorégraphies élégantes et artistiques.",
                 "Un joueur de tennis reconnu annonce sa retraite après une carrière distinguée sur le circuit.",
                 "Une équipe de football réussit à se maintenir dans une ligue de haut niveau malgré les prédictions pessimistes."
-                // Ajoutez les autres nouvelles sportives ici...
         };
 
         int randomIndex = (int) (Math.random() * sportsNewsArray.length);

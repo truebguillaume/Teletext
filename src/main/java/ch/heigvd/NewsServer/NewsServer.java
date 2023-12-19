@@ -125,7 +125,7 @@ public class NewsServer {
         }
 
         /**
-         * Méthode permettant de gérer les messages reçu par les utilisateurs
+         * Méthode permettant de gérer les messages reçus par les utilisateurs
          * @param clientMessages = tableau de messages splité sur le char " "
          * @return le message à envoyer au client
          */
