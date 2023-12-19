@@ -12,7 +12,7 @@
 - The server runs on the ports `5000` and `5001`. (`5000` -> listening to the news emitters and `5001` -> listening to the clients)
 - The client establishes the connection with the server using the `client` command **(unicast, request response)**.
 - The emitters send news across the network and the server store them, they use  **(multicast, fire and forget)**.
-- The emitters mulicast addresses are form 239.0.0.1 to 239.0.0.4.
+- The emitters mulicast addresses are form `239.0.0.1` to `239.0.0.4`.
 - The connection between the client and the server stops either when the client enters the command to disconnect or if an error occurs.
 - There is no connection between the server and the emitters because that's UDP multicast.
 
