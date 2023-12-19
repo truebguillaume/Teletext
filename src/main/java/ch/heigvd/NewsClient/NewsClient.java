@@ -25,7 +25,7 @@ public class NewsClient {
 
                 String receivedMessage = new String(receivePacket.getData(), 0, receivePacket.getLength());
 
-                String[]  splitMessage = receivedMessage.split(" ");
+                String[] splitMessage = receivedMessage.split(" ");
                 handleMessage(splitMessage);
 
                 // L'utilisateur saisit le message à envoyer
