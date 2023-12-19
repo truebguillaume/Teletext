@@ -94,7 +94,7 @@ docker push ghcr.io/<your_github_account>/teletext
 ```
 
     
-There is also a [docke-compose.yaml]() file. You can compose it up, it will start a server and 4 news emitters.   
+There is also a [docke-compose.yaml](/docker-compose.yaml) file. You can compose it up, it will start a server and 4 news emitters.   
 After that, you are free to start by yourself the number of client you want by unsing a Docker image or a [.jar]() file.   
 
 In the directory containing the docker-compose.yml use the following command.
