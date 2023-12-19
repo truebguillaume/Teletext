@@ -1,6 +1,6 @@
 <div align="center">
 <h1 align="center">Teletext</h1>
-<h4>The only way to inform you!</h4>
+<h4>The only way to inform yourself!</h4>
 <hr>
 <img src="docs/teletext.jpg" width="600" alt="Logo"/>
 </div>
