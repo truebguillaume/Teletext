@@ -20,34 +20,34 @@
 
 ### 3.1 - Servers
 #### Start the server 
-Command : `server`
+Command : `server -n <port to receive news (def => 5000)> -c <port to make news available (def => 5001)>`
 |Response|Detail|
 | ---- | ---- |
-|_no response_|The teltext server will wait for new client connections and retrieve the news emitted by the emitters.|
+|_no response_|The teletext server will wait for new client connections and retrieve the news emitted by the emitters|
 
 
 ### 3.2 - Emitters
 #### Start the news emitter 
-Command : `emitter <type> [weather, heig, politic, sport]`
+Command : `emitter <type> [weather, heig, politic, sport] -n <port to send news (def => 5000)>`
 |Response|Detail|
 | ---- | ---- |
-|_no response_|The news emitter will start multicasting news on the network.|
+|_no response_|The news emitter will start multicasting news on the network|
 
 #### Send a news 
-Command : `<importance> [NW = news, BK = breaking news]  <type> [WEATHER, HEIG, POLITIC, SPORT] <news>`
+Command : `<importance> [NW = news, BK = breaking news]  <type> [WEATHER, HEIG, POLITIC, SPORT] <newsText>`
 |Response|Detail|
 | ---- | ---- |
-|_no response_|The news is sent|
+|_no response_|The news is sent to the multicast address|
 
 
 ### 3.3 - Clients
 #### Connect the client to the teletext server
-Command: `client`
+Command: `client -c <port to get news (def => 5001)>`
 |Response|Detail|
 | ---- | ---- |
 |_no response_|Try to connect to the teletext server|
 
-#### When the connection with the server is established (auto send)
+#### At the connection with the server (auto send)
 Command: `welcome`
 |Response|Detail|
 | ---- | ---- |
@@ -66,19 +66,19 @@ Command: `menu`
 |`TXT <message>`|List all existing categories|
 
 #### Display the news about a selected category
-Command: `list <category> [weather, heig, politic, sport]`
+Command: `list <category> [weather, heig, politic, sport, breaking, latest]`
 |Response|Detail|
 | ---- | ---- |
 |`TXT <message>`|List the news for the selected category|
-|`ERR 200`|Actually, there is no news in this category|
-|`ERR 201`|Actually, this category does not exist|
+|`ERR 200`|Currently, there is no news in this category|
+|`ERR 201`|Currently, this category does not exist|
 
 #### Display number of news for a selected category
-Command: `count <category> [weather, heig, politic, sport]`
+Command: `count <category> [weather, heig, politic, sport, breaking, latest]`
 |Response|Detail|
 | ---- | ---- |
 |`TXT <message>`|Print the number of the news for the selected category|
-|`ERR 201`|Actually, this category does not exist|
+|`ERR 201`|Currently, this category does not exist|
 
 
 #### Disconnect the client from the teletext server
