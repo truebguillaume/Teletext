@@ -61,7 +61,7 @@ public class PicoCLI{
     public static class NewsClient implements Runnable{
 
         @CommandLine.Option(
-                names = {"-p", "--port"},
+                names = {"-c", "--client"},
                 description = "Port to connect.")
         private int portClient = 5001;
 
