@@ -21,7 +21,7 @@ The app use maven  so in order to build and package the app use this command.
 ```
 
 ## Running the app
-Download the .jar file into the lastest [release]() and run the command explained under this text. 
+Download the .jar file into the lastest [release](https://github.com/truebguillaume/Teletext/releases/tag/v1.0) and run the command explained under this text. 
 You can also download the source code and build the code with Maven but make sure to have included all dependencies.
 
 ### Launch the teletext server
