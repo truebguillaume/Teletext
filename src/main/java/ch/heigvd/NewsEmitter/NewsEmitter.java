@@ -8,6 +8,11 @@ import java.util.Random;
 
 public class NewsEmitter {
 
+    /**
+     * Méthode permettant de gérer l'envoie de news sur le réseau en multicast
+     * @param newsType = type de la news à envoyer
+     * @param emissionPort = port sur lequel émettre la news
+     */
     public void start(String newsType, int emissionPort) {
 
         newsType = newsType.toUpperCase();
@@ -47,7 +52,7 @@ public class NewsEmitter {
                     System.out.println("> News sent (" + newsType + ") on " + address);
 
 
-                    randomNumber = (random.nextInt(26) + 5) * 1000; // de 5 a 30
+                    randomNumber = (random.nextInt(26) + 5) * 1000; // de 5 a 30 sec
 
                     // Attente avant d'envoyer la prochaine nouvelle (10 secondes)
                     Thread.sleep(randomNumber);

@@ -61,14 +61,14 @@ public class PicoCLI{
     public static class NewsClient implements Runnable{
 
         @CommandLine.Option(
-                names = {"-p", "--port"},
+                names = {"-c", "--client"},
                 description = "Port to connect.")
-        private int port = 5001;
+        private int portClient = 5001;
 
         @Override
         public void run() {
             ch.heigvd.NewsClient.NewsClient n = new ch.heigvd.NewsClient.NewsClient();
-            n.start(port);
+            n.start(portClient);
         }
     }
 }

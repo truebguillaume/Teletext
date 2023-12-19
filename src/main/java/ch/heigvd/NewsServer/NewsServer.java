@@ -50,6 +50,8 @@ public class NewsServer {
         public void run() {
             try(MulticastSocket socket = new MulticastSocket(serverPort);) {
 
+                System.out.println("The server has started to listening to news!");
+
                 // Joindre chaque groupe multicast
                 for (String type : TypeNews.mapTypeIP.keySet()) {
                     InetAddress group = InetAddress.getByName(TypeNews.mapTypeIP.get(type));
@@ -102,8 +104,6 @@ public class NewsServer {
             try (DatagramSocket socket = new DatagramSocket(serverPort);) {
                 while (true) {
 
-                    System.out.println("The server has started to listening to news!");
-
                     // Attente du message du client
                     byte[] receiveData = new byte[1024];
                     DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -125,7 +125,7 @@ public class NewsServer {
         }
 
         /**
-         * Méthode permettant de gérer les messages reçu par les utilisateurs
+         * Méthode permettant de gérer les messages reçus par les utilisateurs
          * @param clientMessages = tableau de messages splité sur le char " "
          * @return le message à envoyer au client
          */

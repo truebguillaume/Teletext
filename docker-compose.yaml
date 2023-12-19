@@ -5,8 +5,20 @@ networks:
     name: network
 
 services:
+  news-server:
+    image: ghcr.io/truebguillaume/teletext:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5001:5001/udp
+    networks:
+      - network
+    command:
+      - server
+
   weather-news-emitter:
-    image: ghcr.io/gwendalpiemonte/teletext:latest
+    image: ghcr.io/truebguillaume/teletext:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -17,7 +29,7 @@ services:
       - weather
 
   heig-news-emitter:
-    image: ghcr.io/gwendalpiemonte/teletext:latest
+    image: ghcr.io/truebguillaume/teletext:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -28,7 +40,7 @@ services:
       - heig
 
   politic-news-emitter:
-    image: ghcr.io/gwendalpiemonte/teletext:latest
+    image: ghcr.io/truebguillaume/teletext:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -39,7 +51,7 @@ services:
       - politic
 
   sport-news-emitter:
-    image: ghcr.io/gwendalpiemonte/teletext:latest
+    image: ghcr.io/truebguillaume/teletext:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -48,13 +60,3 @@ services:
     command:
       - emitter
       - sport
-
-  news-server:
-    image: ghcr.io/gwendalpiemonte/teletext:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
-    networks:
-      - network
-    command:
-      - server

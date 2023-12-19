@@ -5,6 +5,11 @@ import java.util.Scanner;
 
 public class NewsClient {
 
+
+    /**
+     * Méthode permettant de gérer l'envoie de commande au serveur et de recevoir les réponses du serveur
+     * @param serverPort = port sur lequel le serveur écoute les clients
+     */
     public void start(int serverPort) {
 
         try {
@@ -25,7 +30,7 @@ public class NewsClient {
 
                 String receivedMessage = new String(receivePacket.getData(), 0, receivePacket.getLength());
 
-                String[]  splitMessage = receivedMessage.split(" ");
+                String[] splitMessage = receivedMessage.split(" ");
                 handleMessage(splitMessage);
 
                 // L'utilisateur saisit le message à envoyer
@@ -43,7 +48,7 @@ public class NewsClient {
                 }
             }
 
-            // Fermeture du scanner et de la socket
+            // Fermeture du scanner et du socket
             scanner.close();
             socket.close();
 
@@ -52,6 +57,10 @@ public class NewsClient {
         }
     }
 
+    /**
+     * Méthode permettant de gérer les messages reçus par le client
+     * @param messages = message à gérer (messages[0] = TXT ou ERR)
+     */
     private void handleMessage(String[] messages) {
         if(messages[0].equals("TXT")) {
             for(int i = 1 ; i < messages.length ; ++i)
@@ -63,6 +72,10 @@ public class NewsClient {
         System.out.println();
     }
 
+    /**
+     * Méthode permettant de gérer les erreurs suivant le code de celle-ci
+     * @param errorCode = code d'erreur definit dans le protocol
+     */
     private void handleError(String errorCode) {
         switch(errorCode) {
             case "100":
