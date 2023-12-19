@@ -78,7 +78,7 @@ After that you will be able to build a Docker image.
 docker build -t ghcr.io/<your_github_account>/teletext .
 ```
 
-### Run the Docker image you juste built
+### Run the image
 ```sh
 docker run ghcr.io/<your_github_account>/teletext <type> [server, emitter, client]
 ```
